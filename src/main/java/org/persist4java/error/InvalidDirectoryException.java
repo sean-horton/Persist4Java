@@ -16,40 +16,17 @@
  * IN THE SOFTWARE.
  */
 
-package org.persist4java;
-
-import org.persist4java.error.InvalidDirectoryException;
+package org.persist4java.error;
 
 import java.io.File;
 
 /**
- * Main entry point into using/creating a persistent data store. This is not a database, but uses functionality from
- * {@link java.util.prefs.Preferences}.
+ * Notifies that the provided directory is an invalid directory.
  */
-public final class PersistenceFactory {
+public class InvalidDirectoryException extends Exception {
 
-    private PersistenceFactory() {
-
-    }
-
-    /**
-     * Load/initialize a directory to be used for persisted state. If there are already preference files saved
-     * within this directory they will be loaded into memory.
-     * <p>
-     * For example, a use could be to store state in the user directory:
-     *
-     * <pre>
-     *  {@code
-     *  PersistenceFactory.load(new File(System.getProperty("user.home")
-     *              + File.pathSeparator + "<your save path>"));
-     *  }
-     * </pre>
-     *
-     * @param directory The directory to be used for persisted state
-     * @return A {@link PersistenceManager} for the provided directory
-     */
-    public static PersistenceManager load(File directory) throws InvalidDirectoryException {
-        return new PersistenceManagerImpl(directory).initialize();
+    public InvalidDirectoryException(File file) {
+        super(file.getAbsolutePath() + " is not a directory.");
     }
 
 }

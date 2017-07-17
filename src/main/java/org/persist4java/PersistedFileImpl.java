@@ -18,9 +18,35 @@
 
 package org.persist4java;
 
+import java.io.File;
+
 /**
- * Created by shorton on 7/17/17.
+ * A concrete implementation of a {@link PersistedFile}.
  */
 class PersistedFileImpl implements PersistedFile {
+
+    private final File mFile;
+
+    public PersistedFileImpl(File file) {
+        mFile = file;
+    }
+
+    public PersistedFile initialize() {
+
+        return this;
+    }
+
+    //////////////////////////////
+    // PersistedFile
+    //////////////////////////////
+
+    @Override
+    public boolean flush() {
+        return false;
+    }
+
+    //////////////////////////////
+    // Helper Methods
+    //////////////////////////////
 
 }

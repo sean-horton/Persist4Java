@@ -18,13 +18,71 @@
 
 package org.persist4java;
 
+import org.persist4java.error.InvalidDirectoryException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by shorton on 7/17/17.
+ * The concrete implementation of a {@link PersistenceManager}. Provides methods for managing persisted state.
  */
 class PersistenceManagerImpl implements PersistenceManager {
 
-    public void put() {
+    private static final String FILE_EXT = ".pref";
 
+    private final File mDirectory;
+    private final List<PersistedFile> mPersistedFiles;
+
+    public PersistenceManagerImpl(File directory) {
+        mDirectory = directory;
+        mPersistedFiles = new ArrayList<>();
     }
 
+    public PersistenceManager initialize() throws InvalidDirectoryException {
+
+        // Throw exception if invalid directory
+        if (mDirectory.exists() && !mDirectory.isDirectory()) {
+            throw new InvalidDirectoryException(mDirectory);
+        }
+
+        // Create PersistedFile for each file with our extension
+        File[] files = mDirectory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.getAbsolutePath().endsWith(FILE_EXT)) {
+                    mPersistedFiles.add(new PersistedFileImpl(file));
+                }
+            }
+        }
+
+        return this;
+    }
+
+    ////////////////////////////////
+    // PersistenceManager
+    ////////////////////////////////
+    @Override
+    public List<PersistedFile> getFiles() {
+        return mPersistedFiles;
+    }
+
+    @Override
+    public PersistedFile getFile(String name) {
+        return null;
+    }
+
+    @Override
+    public PersistedFile createFile(String name) {
+        return null;
+    }
+
+    @Override
+    public boolean flush() {
+        return false;
+    }
+
+    ////////////////////////////////
+    // Helper methods
+    ////////////////////////////////
 }

@@ -19,7 +19,15 @@
 package org.persist4java;
 
 /**
- * Created by shorton on 7/17/17.
+ * File specific methods for a file saved to disk.
  */
 public interface PersistedFile {
+
+    /**
+     * Flush state for this specific file to the disk.
+     *
+     * @return true if the flush was successfully saved to disk.
+     */
+    boolean flush();
+
 }
