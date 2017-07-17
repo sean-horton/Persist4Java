@@ -18,49 +18,55 @@
 
 package org.persist4java;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.File;
 
 /**
- * A concrete implementation of a {@link PersistedFile}.
+ * Saves the file using crypto
  */
-class PersistedFileImpl implements PersistedFile {
+class PersistedFileCrypto extends PersistedFileDefault {
 
-    private final File mFile;
+    private static final String TYPE = "AES";
 
-    public PersistedFileImpl(File file) {
-        mFile = file;
+    public PersistedFileCrypto(File file) {
+        super(file);
     }
 
+    @Override
     public PersistedFile initialize() {
-
-        return this;
-    }
-
-    //////////////////////////////
-    // PersistedFile
-    //////////////////////////////
-    @Override
-    public void put(String key, String value) {
-
-    }
-
-    @Override
-    public String get(String key) {
-        return null;
-    }
-
-    @Override
-    public String delete(String key) {
-        return null;
+        return super.initialize();
     }
 
     @Override
     public boolean flush() {
-        return false;
-    }
+        try {
+            KeyGenerator keygenerator = KeyGenerator.getInstance(TYPE);
+            SecretKey myDesKey = keygenerator.generateKey();
 
-    //////////////////////////////
-    // Helper Methods
-    //////////////////////////////
+            Cipher desCipher;
+            desCipher = Cipher.getInstance(TYPE);
+
+
+            byte[] text = "No body can see me.".getBytes("UTF8");
+
+
+            desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
+            byte[] textEncrypted = desCipher.doFinal(text);
+
+            String s = new String(textEncrypted);
+            System.out.println(s);
+
+            desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
+            byte[] textDecrypted = desCipher.doFinal(textEncrypted);
+
+            s = new String(textDecrypted);
+            System.out.println(s);
+        } catch (Exception e) {
+            System.out.println("Exception");
+        }
+        return super.flush();
+    }
 
 }

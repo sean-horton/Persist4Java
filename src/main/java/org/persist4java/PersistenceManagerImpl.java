@@ -53,7 +53,7 @@ class PersistenceManagerImpl implements PersistenceManager {
         if (files != null) {
             for (File file : files) {
                 if (file.getAbsolutePath().endsWith(FILE_EXT)) {
-                    mPersistedFiles.add(new PersistedFileImpl(file));
+                    mPersistedFiles.add(new PersistedFileDefault(file).initialize());
                 }
             }
         }
@@ -70,24 +70,38 @@ class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
-    public PersistedFile getFile(String name) {
-        return null;
+    public PersistedFile getFile(String fileName) {
+        PersistedFile persistedFile = null;
+        for (PersistedFile temp : mPersistedFiles) {
+            String name = temp.getFile().getName();
+            String substring = name.substring(0, name.length() - FILE_EXT.length());
+            if (name.length() > FILE_EXT.length()
+                    && substring.equals(fileName)) {
+                persistedFile = temp;
+                break;
+            }
+        }
+        return persistedFile;
     }
 
     @Override
     public PersistedFile createFile(String name) {
+        PersistedFile persistedFile = null;
         File file = new File(mDirectory.getAbsolutePath() + File.separator + name + FILE_EXT);
-        try {
-            file.createNewFile();
-        } catch (Exception e) {
+        persistedFile = new PersistedFileDefault(file).initialize();
+        mPersistedFiles.add(persistedFile);
 
-        }
-        return null;
+        return persistedFile;
     }
 
     @Override
     public boolean flush() {
-        return false;
+        boolean flag = true;
+        for (PersistedFile persistedFile : mPersistedFiles) {
+            flag = flag && persistedFile.flush();
+        }
+
+        return flag;
     }
 
     ////////////////////////////////

@@ -18,6 +18,7 @@
 
 package example;
 
+import org.persist4java.PersistedFile;
 import org.persist4java.PersistenceFactory;
 import org.persist4java.PersistenceManager;
 import org.persist4java.error.InvalidDirectoryException;
@@ -30,14 +31,34 @@ import java.io.File;
 public class UsageExample {
 
     public static void main(String[] args) {
+        UsageExample usageExample = new UsageExample();
+        usageExample.loadFile();
+    }
+
+    public void createFile() {
         try {
             PersistenceManager manager = PersistenceFactory
                     .load(new File(System.getProperty("user.home") + "/Desktop/SeanFileTest"));
 
-            manager.createFile("test");
+            PersistedFile persistedFile = manager.createFile("test");
+            persistedFile.put("blah", "blahblah");
+            persistedFile.flush();
         } catch (InvalidDirectoryException e) {
 
         }
     }
+
+    public void loadFile() {
+        try {
+            PersistenceManager manager = PersistenceFactory
+                    .load(new File(System.getProperty("user.home") + "/Desktop/SeanFileTest"));
+
+            PersistedFile persistedFile = manager.getFile("test");
+            System.out.println(persistedFile.get("blah"));
+        } catch (Exception e) {
+
+        }
+    }
+
 
 }

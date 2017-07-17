@@ -18,6 +18,8 @@
 
 package org.persist4java;
 
+import java.io.File;
+
 /**
  * File specific methods for a file saved to disk.
  */
@@ -29,14 +31,14 @@ public interface PersistedFile {
      * @param key   the key to use
      * @param value the value to save
      */
-    void put(String key, String value);
+    void put(Object key, Object value);
 
     /**
      * Get a value for the specified key
      *
      * @param key the value (may be null) of the key that was specified
      */
-    String get(String key);
+    Object get(String key);
 
     /**
      * The value to delete using the specified key.
@@ -44,7 +46,7 @@ public interface PersistedFile {
      * @param key the key value pair to delete
      * @return the value (may be null) of the key that was deleted
      */
-    String delete(String key);
+    Object delete(String key);
 
     /**
      * Flush state for this specific file to the disk. NOTE: Blocking call.
@@ -52,5 +54,12 @@ public interface PersistedFile {
      * @return true if the flush was successfully saved to disk.
      */
     boolean flush();
+
+    /**
+     * Get the system file associated with this Persisted file
+     *
+     * @return a {@link File}
+     */
+    File getFile();
 
 }
