@@ -104,7 +104,4 @@ class PersistenceManagerImpl implements PersistenceManager {
         return flag;
     }
 
-    ////////////////////////////////
-    // Helper methods
-    ////////////////////////////////
 }

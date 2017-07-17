@@ -86,8 +86,4 @@ class PersistedFileDefault implements PersistedFile {
         return mFile;
     }
 
-    //////////////////////////////
-    // Helper Methods
-    //////////////////////////////
-
 }
