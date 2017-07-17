@@ -36,7 +36,7 @@ public interface PersistedFile {
     /**
      * Get a value for the specified key
      *
-     * @param key the value (may be null) of the key that was specified
+     * @param key the key
      */
     Object get(String key);
 

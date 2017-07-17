@@ -51,7 +51,7 @@ public interface PersistenceManager {
 
     /**
      * Save ALL persisted state to the disk. If flush is not called before the JVM exists your state may not be
-     * persisted. You can also call flush for a specific file using {@link PersistedFile#}. NOTE: Blocking call
+     * persisted. You can also call flush for a specific file using {@link PersistedFile#flush()}. NOTE: Blocking call
      *
      * @return true on successful save to disk
      */
