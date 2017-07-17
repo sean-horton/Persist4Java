@@ -39,11 +39,13 @@ class PersistenceManagerImpl implements PersistenceManager {
         mPersistedFiles = new ArrayList<>();
     }
 
-    public PersistenceManager initialize() throws InvalidDirectoryException {
+    public PersistenceManager initialize() throws InvalidDirectoryException, SecurityException {
 
         // Throw exception if invalid directory
         if (mDirectory.exists() && !mDirectory.isDirectory()) {
-            throw new InvalidDirectoryException(mDirectory);
+            throw new InvalidDirectoryException(mDirectory.getAbsolutePath() + "is not a valid directory");
+        } else if (!mDirectory.exists() && !mDirectory.mkdir()) {
+            throw new InvalidDirectoryException("Unable to make directory " + mDirectory.getAbsolutePath());
         }
 
         // Create PersistedFile for each file with our extension
@@ -74,6 +76,12 @@ class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public PersistedFile createFile(String name) {
+        File file = new File(mDirectory.getAbsolutePath() + File.separator + name + FILE_EXT);
+        try {
+            file.createNewFile();
+        } catch (Exception e) {
+
+        }
         return null;
     }
 

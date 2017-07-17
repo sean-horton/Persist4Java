@@ -24,7 +24,30 @@ package org.persist4java;
 public interface PersistedFile {
 
     /**
-     * Flush state for this specific file to the disk.
+     * Save a value using a key value pair. Be sure to call {@link #flush()} to save the values to disk
+     *
+     * @param key   the key to use
+     * @param value the value to save
+     */
+    void put(String key, String value);
+
+    /**
+     * Get a value for the specified key
+     *
+     * @param key the value (may be null) of the key that was specified
+     */
+    String get(String key);
+
+    /**
+     * The value to delete using the specified key.
+     *
+     * @param key the key value pair to delete
+     * @return the value (may be null) of the key that was deleted
+     */
+    String delete(String key);
+
+    /**
+     * Flush state for this specific file to the disk. NOTE: Blocking call.
      *
      * @return true if the flush was successfully saved to disk.
      */

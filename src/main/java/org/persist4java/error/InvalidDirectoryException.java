@@ -18,15 +18,13 @@
 
 package org.persist4java.error;
 
-import java.io.File;
-
 /**
  * Notifies that the provided directory is an invalid directory.
  */
 public class InvalidDirectoryException extends Exception {
 
-    public InvalidDirectoryException(File file) {
-        super(file.getAbsolutePath() + " is not a directory.");
+    public InvalidDirectoryException(String message) {
+        super(message);
     }
 
 }

@@ -21,7 +21,7 @@ package org.persist4java;
 import java.util.List;
 
 /**
- * Provides
+ * Provides a way to manage persisted files.
  */
 public interface PersistenceManager {
 
@@ -51,7 +51,7 @@ public interface PersistenceManager {
 
     /**
      * Save ALL persisted state to the disk. If flush is not called before the JVM exists your state may not be
-     * persisted. You can also call flush for a specific file using {@link PersistedFile#}
+     * persisted. You can also call flush for a specific file using {@link PersistedFile#}. NOTE: Blocking call
      *
      * @return true on successful save to disk
      */

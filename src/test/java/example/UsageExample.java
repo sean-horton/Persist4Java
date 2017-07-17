@@ -16,51 +16,28 @@
  * IN THE SOFTWARE.
  */
 
-package org.persist4java;
+package example;
+
+import org.persist4java.PersistenceFactory;
+import org.persist4java.PersistenceManager;
+import org.persist4java.error.InvalidDirectoryException;
 
 import java.io.File;
 
 /**
- * A concrete implementation of a {@link PersistedFile}.
+ * Gives an example for how to use Persist4Java
  */
-class PersistedFileImpl implements PersistedFile {
+public class UsageExample {
 
-    private final File mFile;
+    public static void main(String[] args) {
+        try {
+            PersistenceManager manager = PersistenceFactory
+                    .load(new File(System.getProperty("user.home") + "/Desktop/SeanFileTest"));
 
-    public PersistedFileImpl(File file) {
-        mFile = file;
+            manager.createFile("test");
+        } catch (InvalidDirectoryException e) {
+
+        }
     }
-
-    public PersistedFile initialize() {
-
-        return this;
-    }
-
-    //////////////////////////////
-    // PersistedFile
-    //////////////////////////////
-    @Override
-    public void put(String key, String value) {
-
-    }
-
-    @Override
-    public String get(String key) {
-        return null;
-    }
-
-    @Override
-    public String delete(String key) {
-        return null;
-    }
-
-    @Override
-    public boolean flush() {
-        return false;
-    }
-
-    //////////////////////////////
-    // Helper Methods
-    //////////////////////////////
 
 }

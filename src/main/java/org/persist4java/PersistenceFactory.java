@@ -34,7 +34,7 @@ public final class PersistenceFactory {
 
     /**
      * Load/initialize a directory to be used for persisted state. If there are already preference files saved
-     * within this directory they will be loaded into memory.
+     * within this directory they will be loaded into memory. NOTE: Blocking call
      * <p>
      * For example, a use could be to store state in the user directory:
      *
@@ -47,8 +47,10 @@ public final class PersistenceFactory {
      *
      * @param directory The directory to be used for persisted state
      * @return A {@link PersistenceManager} for the provided directory
+     * @throws InvalidDirectoryException
+     * @throws SecurityException
      */
-    public static PersistenceManager load(File directory) throws InvalidDirectoryException {
+    public static PersistenceManager load(File directory) throws InvalidDirectoryException, SecurityException {
         return new PersistenceManagerImpl(directory).initialize();
     }
 
