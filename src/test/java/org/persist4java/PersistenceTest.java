@@ -45,7 +45,7 @@ public class PersistenceTest {
         // Test basic add and deletes
         persistedFile.put("item1", "value");
         assertThat(persistedFile.get("item1"), equalTo("value"));
-        assertThat(persistedFile.delete("item1"), equalTo("value"));
+        assertThat(persistedFile.remove("item1"), equalTo("value"));
         assertThat(persistedFile.get("item1"), equalTo(null));
         assertThat(manager.getFiles(), hasItem(persistedFile));
         assertThat(manager.getFile(FILE_1), equalTo(persistedFile));

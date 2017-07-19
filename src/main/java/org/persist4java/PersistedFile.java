@@ -41,12 +41,12 @@ public interface PersistedFile {
     Object get(String key);
 
     /**
-     * The value to delete using the specified key.
+     * The value to remove using the specified key.
      *
-     * @param key the key value pair to delete
+     * @param key the key value pair to remove
      * @return the value (may be null) of the key that was deleted
      */
-    Object delete(String key);
+    Object remove(String key);
 
     /**
      * Flush state for this specific file to the disk. NOTE: Blocking call.

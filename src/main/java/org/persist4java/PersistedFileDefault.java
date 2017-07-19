@@ -62,7 +62,7 @@ class PersistedFileDefault implements PersistedFile {
     }
 
     @Override
-    public Object delete(String key) {
+    public Object remove(String key) {
         return mProperties.remove(key);
     }
 
