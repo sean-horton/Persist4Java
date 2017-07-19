@@ -11,7 +11,7 @@ PersistenceManager persistenceManager = PersistenceFactory
                     + "/Desktop/Persist4Java"));
 ```
 
-2) Manage `PersistedFile`'s:
+2) Manage `PersistedFile`'s using the `PersistenceManager`:
 ```
 // Create a new persisted file with the specified 'name'
 PersistedFile persistedFile = persistenceManager.createFile(name);
@@ -23,17 +23,16 @@ PersistedFile persistedFile = persistenceManager.getFile(name);
 List<PersistedFile> persistedFileList = persistenceManager.getFiles();
 ```
 
-3) Add, update, get and remove preferences
+3) Add, update, get and remove preferences for a `PersistedFile`
 ```
 // Update or Add a property
 persistedFile.put("key", "value");
 
 // Remove a preference
-persistedFile.remove("key");
+String example = (String) persistedFile.remove("key");
 
 // get a key
 String example = (String) persistedFile.get("key");
-
 ```
 
 
@@ -41,7 +40,7 @@ String example = (String) persistedFile.get("key");
 data is stored in memory until `flush()` is called.
 ```
 // Flush only a specific file to disk (Blocking call)
-persistenceManager.flush();
+persistedFile.flush();
 
 // Flush all persisted files to disk (Blocking call)
 persistenceManager.flush();
