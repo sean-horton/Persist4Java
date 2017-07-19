@@ -16,11 +16,8 @@
  * IN THE SOFTWARE.
  */
 
-package example;
+package org.persist4java;
 
-import org.persist4java.PersistedFile;
-import org.persist4java.PersistenceFactory;
-import org.persist4java.PersistenceManager;
 import org.persist4java.error.InvalidDirectoryException;
 
 import java.io.File;
@@ -30,35 +27,34 @@ import java.io.File;
  */
 public class UsageExample {
 
+    private static final String FILE_USER_PREF = "UserPreferences";
+    private static final String USERNAME_KEY = "username";
+
     public static void main(String[] args) {
         UsageExample usageExample = new UsageExample();
-        usageExample.loadFile();
+        usageExample.start();
     }
 
-    public void createFile() {
+    /**
+     * After running example code check out the directory and the saved files contents
+     */
+    public void start() {
         try {
+            // Initialize the persisted state (loads or starts a new persisted state dir)
             PersistenceManager manager = PersistenceFactory
-                    .load(new File(System.getProperty("user.home") + "/Desktop/SeanFileTest"));
+                    .load(new File(System.getProperty("user.home") + "/Desktop/Persist4Java"));
 
-            PersistedFile persistedFile = manager.createFile("test");
-            persistedFile.put("blah", "blahblah");
+            // Add a new preference
+            PersistedFile persistedFile = manager.createFile(FILE_USER_PREF);
+            persistedFile.put(USERNAME_KEY, "Some User");
+
+            System.out.println("State stored to preference: " + persistedFile.get(USERNAME_KEY));
+
+            // Save preference to disk
             persistedFile.flush();
         } catch (InvalidDirectoryException e) {
-
+            System.out.println("Unable to initialize: " + e.getMessage());
         }
     }
-
-    public void loadFile() {
-        try {
-            PersistenceManager manager = PersistenceFactory
-                    .load(new File(System.getProperty("user.home") + "/Desktop/SeanFileTest"));
-
-            PersistedFile persistedFile = manager.getFile("test");
-            System.out.println(persistedFile.get("blah"));
-        } catch (Exception e) {
-
-        }
-    }
-
 
 }
