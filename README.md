@@ -50,3 +50,6 @@ persistenceManager.flush();
 This is not intended to replace a database, but provides a 
 simple API for saving simple preferences or state to the 
 file system.
+
+### Building
+Run `./gradlew jar`. There are no external libraries required.
